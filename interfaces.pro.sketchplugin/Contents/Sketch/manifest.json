@@ -5,7 +5,7 @@
   "homepage": "https://interface.pro",
   "version": "1.0.0",
   "identifier": "pro.interface",
-  "appcast": "https://example.org/template-plugin-appcast.xml",
+  "appcast": "https://raw.githubusercontent.com/jacopocolo/interfaces.pro-sketchplugin/master/appcast.xml",
   "icon": "icon.png",
   "compatibleVersion": "49",
   "bundleVersion": 1,
