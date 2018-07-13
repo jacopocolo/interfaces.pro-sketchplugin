@@ -10,11 +10,11 @@
         <description>
           <![CDATA[
             <ul>
-              <li>First release</li>
+              <li>First release 🎉</li>
             </ul>
           ]]>
         </description>
-        <enclosure url="YOUR ZIP RELEASE URL" sparkle:version="1.0.0" />
+        <enclosure url="https://github.com/jacopocolo/interfaces.pro-sketchplugin/releases/download/1.0.0/interfaces.pro.1.0.0.sketchplugin.zip" sparkle:version="1.0.0" />
       </item>
   </channel>
 </rss>
