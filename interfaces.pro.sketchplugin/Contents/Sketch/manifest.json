@@ -1,0 +1,24 @@
+{
+  "name": "Interfaces pro",
+  "description": "A brand-focused collection of user interface (UI) design examples",
+  "author": "Jacopo Colò",
+  "homepage": "https://interface.pro",
+  "version": "1.0.0",
+  "identifier": "pro.interface",
+  "appcast": "https://example.org/template-plugin-appcast.xml",
+  "icon": "icon.png",
+  "compatibleVersion": "49",
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "Open Interfaces.pro",
+      "identifier": "run",
+      "shortcut": "cmd+alt+ctrl+I",
+      "script": "script.js",
+      "handler": "onRun"
+    }
+  ],
+  "menu": {
+    "items": ["run"]
+  }
+}
