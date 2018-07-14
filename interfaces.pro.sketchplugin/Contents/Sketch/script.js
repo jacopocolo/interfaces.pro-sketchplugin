@@ -23,8 +23,11 @@ function onRun(context) {
         return;
   }
 
-  var windowWidth = 600,
-        windowHeight = 450;
+  var viewportWidth = context.document.contentDrawView().frame().size.width;
+  var viewportHeight = context.document.contentDrawView().frame().size.height;
+
+  var windowWidth = viewportWidth-100,
+        windowHeight = viewportHeight-100;
     var webViewWindow = NSPanel.alloc().init();
     webViewWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
     webViewWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask);
