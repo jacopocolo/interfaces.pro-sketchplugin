@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 	<style>
 		body,
 		html {
@@ -19,10 +20,35 @@
 </head>
 
 <body>
+	<div class="focus" style="background-color: grey; height: 30px;"></div>
 	<div class="iframe-container">
-	<iframe src="https://interfaces.pro/" style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+	<iframe src="https://interfaces.pro/" style="position:fixed; top:30px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
     Your browser doesn't support iframes
 </iframe>
 </div>
 </body>
+<script>
+function updateHash(hash) {
+		//We can send a simple command or a command with a parameter and value
+		//You can extend this function to send multiple values. script.js will parse
+		//all the values and expose them in the hash object so you can use them
+		//new Date is there just to make sure the url is alwasy different
+			window.location.hash = hash+'&date=' +new Date().getTime();
+			return false
+};
+
+window.onfocus = function() {
+    updateHash('focus');
+}
+
+$(window).blur(function() {
+	updateHash('blur');
+})
+
+$('iframe').click(function() {
+	window.focus();
+	$('.focus').text('iframe clicked');
+});
+
+</script>
 </html>

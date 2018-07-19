@@ -4,13 +4,17 @@
 // let's get a hold on the Sketch API
 const sketch = require('sketch')
 //let's expose these globally
+var context;
 var document;
 var page;
+var string;
 
 //the main function we run when we execute the plugin. It creates the webview and hooks
 function onRun(context) {
+  context = context;
   document = sketch.fromNative(context.document)
   page = document.selectedPage;
+  string = "hello";
 
   var userDefaults = NSUserDefaults.standardUserDefaults();
 
@@ -30,6 +34,7 @@ function onRun(context) {
         windowHeight = viewportHeight-100;
     var webViewWindow = NSPanel.alloc().init();
     webViewWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
+
     webViewWindow.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask);
 
     //Uncomment the following line to define the app bar color with an NSColor
@@ -64,29 +69,20 @@ function onRun(context) {
               var hash = parseHash(locationHash);
               //We parse the location hash and check for the command we are sending from the UI
               //If the command exist we run the following code
-              if (hash.hasOwnProperty('update')) {
-                //In example updating the artboard count based on the current contex.
-                //The evaluateWebScript function allows us to call a function from the UI.html with parameters
-                //coming from Sketch
-                windowObject.evaluateWebScript("updateInput("+artboardsCount()+");");
+              if (hash.hasOwnProperty('blur')) {
+                log(hash);
+                var x = webViewWindow.frame().origin.x;
+                var y = webViewWindow.frame().origin.y+viewportHeight-20;
+                //we minimize when the window is out of focus
+                webViewWindow.setFrame_display(NSMakeRect(x, y, viewportWidth, 40), true);
+              } else if (hash.hasOwnProperty('focus')) {
+                log(hash);
+                var x = webViewWindow.frame().origin.x;
+                var y = webViewWindow.frame().origin.y-viewportHeight+20;
 
-              } else if (hash.hasOwnProperty('addArtboard')) {
-                //If you are sending arguments from the UI
-                //You can simply grab them from the hash object
-                var artboardName = hash.artboardName;
-                //And then use them in your functions: in example adding an artboard
-                const layer = new sketch.Artboard({
-                parent: page,
-                name: artboardName,
-                });
-
-              } else if (hash.hasOwnProperty('close')) {
-                //We can also call commands on the window itself, like closing the window
-                //This can be run aftr other commands, obviously
-                threadDictionary.removeObjectForKey(identifier);
-                webViewWindow.close();
-              }
-
+                //we expand when the window is in focus
+                webViewWindow.setFrame_display(NSMakeRect(x, y, viewportWidth, viewportHeight), true);
+              };
           })
       });
 

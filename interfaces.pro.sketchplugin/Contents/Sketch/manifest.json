@@ -13,12 +13,19 @@
     {
       "name": "Open Interfaces.pro",
       "identifier": "run",
-      "shortcut": "cmd+alt+ctrl+I",
+      "shortcut": "alt+ctrl+I",
       "script": "script.js",
       "handler": "onRun"
+    },
+    {
+      "name": "Minimize",
+      "identifier": "minimize",
+      "shortcut": "alt+ctrl+M",
+      "script": "script.js",
+      "handler": "minimizeWindow"
     }
   ],
   "menu": {
-    "items": ["run"]
+    "items": ["run", "minimize"]
   }
 }
