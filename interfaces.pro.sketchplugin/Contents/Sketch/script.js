@@ -7,7 +7,10 @@ const sketch = require('sketch')
 var context;
 var document;
 var page;
-var string;
+var focus = true;
+var firstTime = true;
+var windowX;
+var windowY;
 
 //the main function we run when we execute the plugin. It creates the webview and hooks
 function onRun(context) {
@@ -31,7 +34,8 @@ function onRun(context) {
   var viewportHeight = context.document.contentDrawView().frame().size.height;
 
   var windowWidth = viewportWidth-100,
-        windowHeight = viewportHeight-100;
+      windowHeight = viewportHeight-100;
+
     var webViewWindow = NSPanel.alloc().init();
     webViewWindow.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), true);
 
@@ -67,21 +71,21 @@ function onRun(context) {
               //In example, if you send updateHash('add','artboardName','Mark')
               //You’ll be able to use hash.artboardName to return 'Mark'
               var hash = parseHash(locationHash);
+
+              windowX = webViewWindow.frame().origin.x;
+              windowY = webViewWindow.frame().origin.y;
               //We parse the location hash and check for the command we are sending from the UI
               //If the command exist we run the following code
               if (hash.hasOwnProperty('blur')) {
-                log(hash);
-                var x = webViewWindow.frame().origin.x;
-                var y = webViewWindow.frame().origin.y+viewportHeight-20;
-                //we minimize when the window is out of focus
-                webViewWindow.setFrame_display(NSMakeRect(x, y, viewportWidth, 40), true);
-              } else if (hash.hasOwnProperty('focus')) {
-                log(hash);
-                var x = webViewWindow.frame().origin.x;
-                var y = webViewWindow.frame().origin.y-viewportHeight+20;
+                //if we are resizing, we store the width and height for restoring later
+                windowWidth = webViewWindow.frame().size.width;
+                windowHeight = webViewWindow.frame().size.height;
 
+                //we minimize when the window is out of focus with special handling for first launch
+                webViewWindow.setFrame_display(NSMakeRect(windowX, windowY+windowHeight-20, 250, 20), true);
+              } else if (hash.hasOwnProperty('focus')) {
                 //we expand when the window is in focus
-                webViewWindow.setFrame_display(NSMakeRect(x, y, viewportWidth, viewportHeight), true);
+                webViewWindow.setFrame_display(NSMakeRect(windowX, windowY-windowHeight+20, windowWidth, windowHeight), true);
               };
           })
       });
@@ -89,7 +93,11 @@ function onRun(context) {
       webView.setFrameLoadDelegate_(delegate.getClassInstance());
       webView.setMainFrameURL_(context.plugin.urlForResourceNamed("ui.html").path());
       webViewWindow.contentView().addSubview(webView);
+      //Center the window and set windowX and windowY;
       webViewWindow.center();
+      windowX = webViewWindow.frame().origin.x;
+      windowY = webViewWindow.frame().origin.y;
+
       webViewWindow.makeKeyAndOrderFront(nil);
       // Define the close window behaviour on the standard red traffic light button
       var closeButton = webViewWindow.standardWindowButton(NSWindowCloseButton);
