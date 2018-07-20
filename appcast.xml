@@ -27,5 +27,16 @@
         </description>
         <enclosure url="https://github.com/jacopocolo/interfaces.pro-sketchplugin/releases/download/1.0.1/interfaces.pro.1.0.1.sketchplugin.zip" sparkle:version="1.0.1" />
       </item>
+      <item>
+        <title>1.0.2</title>
+        <description>
+          <![CDATA[
+            <ul>
+              <li>The panel now automatically collapses when not selected, so you can keep your session while working.</li>
+            </ul>
+          ]]>
+        </description>
+        <enclosure url="https://github.com/jacopocolo/interfaces.pro-sketchplugin/releases/download/1.0.2/interfaces.pro.1.0.2.sketchplugin.zip" sparkle:version="1.0.2" />
+      </item>
   </channel>
 </rss>

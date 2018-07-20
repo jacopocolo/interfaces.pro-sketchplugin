@@ -3,7 +3,7 @@
   "description": "A brand-focused collection of user interface (UI) design examples",
   "author": "Jacopo Colò",
   "homepage": "https://interface.pro",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "identifier": "pro.interface",
   "appcast": "https://raw.githubusercontent.com/jacopocolo/interfaces.pro-sketchplugin/master/appcast.xml",
   "icon": "icon.png",
